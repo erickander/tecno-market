@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | TECNO-MARKET</title>
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="contenedor topbar__inner">
+        <a class="marca" href="index.html">
+            <span class="marca__logo">TM</span>
+            <span class="marca__texto">TECNO<span>MARKET</span></span>
+        </a>
+        <nav class="nav">
+            <a class="nav__link" href="index.html">Catálogo</a>
+            <a class="nav__link" href="admin.html">Administración</a>
+            <a class="nav__link nav__carrito activo" href="carrito.html">
+                Carrito <span class="badge" id="contadorCarrito">0</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main class="contenedor seccion">
+    <div class="seccion__cabecera">
+        <div>
+            <h1 class="seccion__titulo">Tu carrito</h1>
+            <p class="seccion__subtitulo" id="resumenCarrito">Revisa los productos antes de confirmar.</p>
+        </div>
+        <a class="boton" href="index.html">Seguir comprando</a>
+    </div>
+
+    <div class="carrito">
+        <div class="panel">
+            <h2 class="panel__titulo">
+                Productos <span class="chip" id="contadorItems">0</span>
+            </h2>
+            <div class="items" id="itemsCarrito">
+                <div class="cargando"><div class="spinner"></div><span>Cargando carrito...</span></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="panel" id="panelCheckout">
+                <h2 class="panel__titulo">Datos de envío</h2>
+                <form id="formCheckout" novalidate>
+                    <div class="campo">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" minlength="3" maxlength="100" placeholder="Carlos Mendoza" required>
+                    </div>
+                    <div class="campo">
+                        <label for="correo">Correo electrónico</label>
+                        <input type="email" id="correo" maxlength="100" placeholder="carlos@correo.com" required>
+                    </div>
+                    <div class="campo">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" minlength="7" maxlength="15" placeholder="0991234567" required>
+                    </div>
+                    <div class="campo">
+                        <label for="direccion">Dirección de entrega</label>
+                        <input type="text" id="direccion" maxlength="150" placeholder="Av. Amazonas 123, Quito">
+                    </div>
+
+                    <div class="resumen">
+                        <div class="resumen__linea"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+                        <div class="resumen__linea"><span>Envío</span><span>Gratis</span></div>
+                        <div class="resumen__total"><span>Total</span><span class="precio" id="total">0.00</span></div>
+                    </div>
+
+                    <button class="boton boton--primario boton--bloque" type="submit" id="btnConfirmar">
+                        Confirmar pedido
+                    </button>
+
+                    <p class="aviso">
+                        Si el correo no existe, el cliente se registra automáticamente al confirmar.
+                        El stock se valida y descuenta en el servidor.
+                    </p>
+                </form>
+            </div>
+
+            <div class="panel oculto" id="pedidoExito">
+                <h2 class="panel__titulo">¡Pedido registrado!</h2>
+                <div class="estado" style="border-style:solid; margin-bottom:1rem;">
+                    <strong id="exitoNumero">Pedido #0</strong>
+                    <span id="exitoMensaje">Tu pedido fue registrado correctamente.</span>
+                </div>
+                <div class="resumen">
+                    <div class="resumen__linea"><span>Cliente</span><span id="exitoCliente">-</span></div>
+                    <div class="resumen__linea"><span>Estado</span><span id="exitoEstado">-</span></div>
+                    <div class="resumen__total"><span>Total</span><span class="precio" id="exitoTotal">0.00</span></div>
+                </div>
+                <a class="boton boton--primario boton--bloque" href="index.html">Volver al catálogo</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="pie">
+    <div class="contenedor pie__inner">
+        <span><strong>TECNO-MARKET</strong> · Sistemas Distribuidos · Unidad 4</span>
+        <span>API REST en PHP 8 + MySQL · 2026</span>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/carrito.js"></script>
+</body>
+</html>

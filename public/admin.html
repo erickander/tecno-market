@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración | TECNO-MARKET</title>
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="contenedor topbar__inner">
+        <a class="marca" href="index.html">
+            <span class="marca__logo">TM</span>
+            <span class="marca__texto">TECNO<span>MARKET</span></span>
+        </a>
+        <nav class="nav">
+            <a class="nav__link" href="index.html">Catálogo</a>
+            <a class="nav__link activo" href="admin.html">Administración</a>
+            <a class="nav__link nav__carrito" href="carrito.html">
+                Carrito <span class="badge" id="contadorCarrito">0</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main class="contenedor seccion">
+    <div class="seccion__cabecera">
+        <div>
+            <h1 class="seccion__titulo">Panel de administración</h1>
+            <p class="seccion__subtitulo">Gestión de productos e inventario, y control de pedidos.</p>
+        </div>
+        <button class="boton" id="recargar">Recargar datos</button>
+    </div>
+
+    <div class="aviso" style="margin-bottom:1.4rem;">
+        Panel abierto sin autenticación. El inicio de sesión con JWT, la cabecera
+        <code>Authorization: Bearer</code> y la restricción por rol son responsabilidad de la Persona 4.
+    </div>
+
+    <div class="pestanas">
+        <button class="pestana activo" data-pestana="productos">Productos</button>
+        <button class="pestana" data-pestana="pedidos">Pedidos</button>
+    </div>
+
+    <section id="tabProductos" class="admin">
+        <div class="panel">
+            <h2 class="panel__titulo" id="tituloFormulario">Nuevo producto</h2>
+
+            <form id="formProducto">
+                <input type="hidden" id="idProducto">
+
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" maxlength="100" required placeholder="Monitor LG 27">
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="precio">Precio (USD)</label>
+                        <input type="number" id="precio" min="0.01" step="0.01" required placeholder="199.99">
+                    </div>
+                    <div class="campo">
+                        <label for="stock">Stock</label>
+                        <input type="number" id="stock" min="0" step="1" required placeholder="10">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="imagen">Imagen</label>
+                    <select id="imagen"></select>
+                </div>
+
+                <div class="campo">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" maxlength="500" placeholder="Características del producto..."></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="activo">Estado</label>
+                    <select id="activo">
+                        <option value="1">Activo (visible en catálogo)</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="fila">
+                    <button class="boton boton--primario" type="submit" id="btnGuardar">Guardar producto</button>
+                    <button class="boton" type="button" id="cancelarEdicion">Limpiar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tabla-envoltura">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th style="text-align:right;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoProductos">
+                    <tr><td colspan="5">Cargando productos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="tabPedidos" class="oculto">
+        <div class="tabla-envoltura">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoPedidos">
+                    <tr><td colspan="6">Cargando pedidos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer class="pie">
+    <div class="contenedor pie__inner">
+        <span><strong>TECNO-MARKET</strong> · Sistemas Distribuidos · Unidad 4</span>
+        <span>API REST en PHP 8 + MySQL · 2026</span>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

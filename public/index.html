@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECNO-MARKET | Tienda de tecnología</title>
+    <meta name="description" content="Tienda virtual de productos tecnológicos: laptops, monitores, periféricos y más.">
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="contenedor topbar__inner">
+        <a class="marca" href="index.html">
+            <span class="marca__logo">TM</span>
+            <span class="marca__texto">TECNO<span>MARKET</span></span>
+        </a>
+        <nav class="nav">
+            <a class="nav__link activo" href="index.html">Catálogo</a>
+            <a class="nav__link" href="admin.html">Administración</a>
+            <a class="nav__link nav__carrito" href="carrito.html">
+                Carrito <span class="badge" id="contadorCarrito">0</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<section class="heroe">
+    <div class="contenedor">
+        <p class="heroe__etiqueta">Tecnología para todos</p>
+        <h1 class="heroe__titulo">Equipa tu mundo <span>digital</span></h1>
+        <p class="heroe__texto">
+            Laptops, monitores, periféricos y accesorios con stock en tiempo real.
+            Compra en línea y recibe tu pedido en la puerta de tu casa.
+        </p>
+        <div class="buscador">
+            <input type="search" id="busqueda" placeholder="Buscar producto por nombre o descripción..." autocomplete="off">
+            <select id="orden" aria-label="Ordenar productos">
+                <option value="id">Destacados</option>
+                <option value="nombre">Nombre (A-Z)</option>
+                <option value="precio_asc">Precio: menor a mayor</option>
+                <option value="precio_desc">Precio: mayor a menor</option>
+                <option value="stock">Mayor stock</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+<main class="contenedor seccion">
+    <div class="seccion__cabecera">
+        <div>
+            <h2 class="seccion__titulo">Catálogo de productos</h2>
+            <p class="seccion__subtitulo" id="resumenCatalogo">Cargando productos...</p>
+        </div>
+    </div>
+
+    <div id="grilla" class="grilla" aria-live="polite"></div>
+    <div id="paginacion" class="paginacion"></div>
+</main>
+
+<footer class="pie">
+    <div class="contenedor pie__inner">
+        <span><strong>TECNO-MARKET</strong> · Sistemas Distribuidos · Unidad 4</span>
+        <span>API REST en PHP 8 + MySQL · 2026</span>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/catalogo.js"></script>
+</body>
+</html>

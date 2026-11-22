@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del producto | TECNO-MARKET</title>
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="contenedor topbar__inner">
+        <a class="marca" href="index.html">
+            <span class="marca__logo">TM</span>
+            <span class="marca__texto">TECNO<span>MARKET</span></span>
+        </a>
+        <nav class="nav">
+            <a class="nav__link activo" href="index.html">Catálogo</a>
+            <a class="nav__link" href="admin.html">Administración</a>
+            <a class="nav__link nav__carrito" href="carrito.html">
+                Carrito <span class="badge" id="contadorCarrito">0</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main class="contenedor seccion">
+    <div class="migas" id="migasProducto">
+        <a href="index.html">Catálogo</a> <span>/</span> <span>Producto</span>
+    </div>
+
+    <div id="detalleProducto" class="detalle">
+        <div class="cargando"><div class="spinner"></div><span>Cargando producto...</span></div>
+    </div>
+</main>
+
+<footer class="pie">
+    <div class="contenedor pie__inner">
+        <span><strong>TECNO-MARKET</strong> · Sistemas Distribuidos · Unidad 4</span>
+        <span>API REST en PHP 8 + MySQL · 2026</span>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/catalogo.js"></script>
+</body>
+</html>
