@@ -9,7 +9,8 @@ class Usuario
     {
         $pdo = Database::conexion();
         $stmt = $pdo->prepare(
-            'SELECT id_usuario, nombre_usuario, contrasena, rol, id_cliente, activo, ultimo_acceso
+            'SELECT id_usuario, nombre_usuario, contrasena, rol, id_cliente, activo,
+                    ultimo_acceso, created_at
                FROM usuarios
               WHERE nombre_usuario = :nombre'
         );

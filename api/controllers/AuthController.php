@@ -29,6 +29,7 @@ class AuthController
         }
 
         Usuario::actualizarUltimoAcceso((int) $usuario['id_usuario']);
+        $usuario['ultimo_acceso'] = date('Y-m-d H:i:s');
 
         $jwt = Jwt::generar([
             'sub'        => (int) $usuario['id_usuario'],

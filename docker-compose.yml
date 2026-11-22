@@ -1,0 +1,59 @@
+# ============================================================
+# TECNO-MARKET | Entorno reproducible con Docker
+#
+#   docker compose up -d --build     ->  http://localhost:8080
+#   docker compose down              ->  detiene
+#   docker compose down -v           ->  borra tambien la base
+# ============================================================
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tecno_market_web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: tecno_market
+      DB_USER: tecno
+      DB_PASS: tecno123
+      APP_DEBUG: "false"
+      JWT_SECRET: "cambia-este-secreto-en-produccion"
+      TZ: America/Guayaquil
+    command: >
+      sh -c "[ -f api/config/config.php ] || cp api/config/config.example.php api/config/config.php;
+             apache2-foreground"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.4
+    container_name: tecno_market_db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root123
+      MARIADB_DATABASE: tecno_market
+      MARIADB_USER: tecno
+      MARIADB_PASSWORD: tecno123
+      TZ: America/Guayaquil
+    ports:
+      - "3307:3306"
+    volumes:
+      - tecno_db_data:/var/lib/mysql
+      - ./sql/01_esquema.sql:/docker-entrypoint-initdb.d/01_esquema.sql:ro
+      - ./sql/02_datos_prueba.sql:/docker-entrypoint-initdb.d/02_datos_prueba.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  tecno_db_data:

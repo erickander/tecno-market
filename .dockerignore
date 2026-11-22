@@ -1,0 +1,11 @@
+.git
+.gitignore
+docs
+postman
+.postman
+*.md
+*.zip
+*.rar
+*.bak
+node_modules
+vendor
