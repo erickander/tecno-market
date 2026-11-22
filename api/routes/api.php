@@ -37,6 +37,12 @@ $router->get('/ping', function (): void {
 });
 
 // ------------------------------------------------------------
+// Autenticacion
+// ------------------------------------------------------------
+$router->post('/auth/login', [AuthController::class, 'login']);
+$router->get('/auth/me', [AuthController::class, 'me'], ['administrador', 'cliente']);
+
+// ------------------------------------------------------------
 // Productos (publico: catalogo / protegido: administracion)
 // ------------------------------------------------------------
 $router->get('/productos', [ProductoController::class, 'listar']);

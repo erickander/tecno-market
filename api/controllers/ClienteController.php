@@ -35,6 +35,8 @@ class ClienteController
             Response::error(404, 'Cliente no encontrado');
         }
 
+        Auth::autorizarPropietario($cliente['id_cliente']);
+
         Response::ok($cliente, 'Cliente encontrado');
     }
 }

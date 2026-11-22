@@ -980,6 +980,71 @@ tbody tr:hover {
     object-fit: cover;
 }
 
+/* ---------------- Acceso / login ---------------- */
+
+.acceso {
+    min-height: calc(100vh - 140px);
+    display: grid;
+    place-items: center;
+    padding: 3rem 1rem;
+}
+
+.tarjeta-acceso {
+    width: min(430px, 100%);
+    background: linear-gradient(180deg, var(--superficie), var(--fondo-2));
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 2rem;
+    box-shadow: var(--sombra);
+}
+
+.tarjeta-acceso h1 {
+    font-size: 1.7rem;
+    letter-spacing: -0.01em;
+}
+
+.alerta {
+    margin-top: 1rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ffb4b4;
+    font-size: 0.86rem;
+}
+
+.credenciales {
+    margin-top: 1.3rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--borde);
+    font-size: 0.82rem;
+    color: var(--texto-suave);
+    line-height: 1.7;
+}
+
+.credenciales code {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #cbd7f7;
+}
+
+.sesion-barra {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.sesion {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.sesion strong {
+    color: var(--texto);
+}
+
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.6rem; }

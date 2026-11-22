@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración | TECNO-MARKET</title>
+    <script>
+        // Guardia de sesion: sin token no se entra al panel
+        if (!localStorage.getItem('tecno_token')) {
+            window.location.replace('login.html?destino=admin.html');
+        }
+    </script>
     <link rel="icon" type="image/svg+xml" href="img/logo.svg">
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -31,12 +37,16 @@
             <h1 class="seccion__titulo">Panel de administración</h1>
             <p class="seccion__subtitulo">Gestión de productos e inventario, y control de pedidos.</p>
         </div>
-        <button class="boton" id="recargar">Recargar datos</button>
+        <div class="sesion-barra">
+            <span class="sesion" id="sesionInfo">Verificando sesión...</span>
+            <button class="boton boton--sm" id="cerrarSesion">Cerrar sesión</button>
+            <button class="boton" id="recargar">Recargar datos</button>
+        </div>
     </div>
 
     <div class="aviso" style="margin-bottom:1.4rem;">
-        Panel abierto sin autenticación. El inicio de sesión con JWT, la cabecera
-        <code>Authorization: Bearer</code> y la restricción por rol son responsabilidad de la Persona 4.
+        Panel protegido con JWT. Las operaciones de administración requieren un token con rol
+        <strong>administrador</strong>; el catálogo y el registro de pedidos son públicos.
     </div>
 
     <div class="pestanas">

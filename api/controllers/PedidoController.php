@@ -45,7 +45,14 @@ class PedidoController
 
         $idCliente = null;
 
-        if (isset($datos['id_cliente'])) {
+        if (Auth::rol() === 'cliente') {
+            // Un cliente solo puede registrar pedidos a su propio nombre
+            $idCliente = Auth::idCliente();
+
+            if ($idCliente === null) {
+                Response::error(403, 'El usuario no tiene un cliente asociado');
+            }
+        } elseif (isset($datos['id_cliente'])) {
             $cliente = Cliente::buscar((int) $datos['id_cliente']);
 
             if ($cliente === null) {
@@ -97,6 +104,8 @@ class PedidoController
             Response::error(404, 'Pedido no encontrado');
         }
 
+        Auth::autorizarPropietario($pedido['cliente']['id_cliente']);
+
         Response::ok($pedido, 'Pedido encontrado');
     }
 
@@ -107,6 +116,8 @@ class PedidoController
         if ($cliente === null) {
             Response::error(404, 'Cliente no encontrado');
         }
+
+        Auth::autorizarPropietario((int) $id);
 
         $pedidos = Pedido::porCliente((int) $id);
 

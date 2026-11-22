@@ -30,7 +30,9 @@
 
     function iniciar() {
         pintarOpcionesImagen();
+        verificarSesion();
 
+        document.getElementById('cerrarSesion').addEventListener('click', cerrarSesion);
         document.getElementById('formProducto').addEventListener('submit', guardar);
         document.getElementById('cancelarEdicion').addEventListener('click', limpiarFormulario);
         document.getElementById('recargar').addEventListener('click', function () {
@@ -92,6 +94,35 @@
         vista.src = window.imagenProducto(valor);
     }
 
+    async function verificarSesion() {
+        try {
+            var usuario = await API.get('auth/me');
+            document.getElementById('sesionInfo').innerHTML =
+                'Sesión: <strong>' + window.escaparHtml(usuario.nombre_usuario) + '</strong> · ' +
+                window.escaparHtml(usuario.rol);
+        } catch (error) {
+            if (error.codigo === 401) {
+                cerrarSesion();
+                return;
+            }
+            document.getElementById('sesionInfo').textContent = 'No se pudo verificar la sesión';
+        }
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('tecno_token');
+        localStorage.removeItem('tecno_usuario');
+        window.location.replace('login.html');
+    }
+
+    function sesionVencida(error) {
+        if (error && error.codigo === 401) {
+            cerrarSesion();
+            return true;
+        }
+        return false;
+    }
+
     function cambiarPestana(nombre) {
         document.querySelectorAll('[data-pestana]').forEach(function (boton) {
             boton.classList.toggle('activo', boton.getAttribute('data-pestana') === nombre);
@@ -112,6 +143,7 @@
             productos = data.items;
             pintarProductos();
         } catch (error) {
+            if (sesionVencida(error)) return;
             cuerpo.innerHTML = '<tr><td colspan="5">' + window.escaparHtml(error.message) + '</td></tr>';
             window.toast(error.message, 'error');
         }
@@ -217,6 +249,7 @@
             limpiarFormulario();
             cargarProductos();
         } catch (error) {
+            if (sesionVencida(error)) return;
             var mensaje = error.message;
 
             if (error.detalles) {
@@ -240,6 +273,7 @@
             window.toast('Producto eliminado', 'ok');
             cargarProductos();
         } catch (error) {
+            if (sesionVencida(error)) return;
             window.toast(error.message, 'error', 6000);
         }
     }
@@ -255,6 +289,7 @@
             pedidos = data.items;
             pintarPedidos();
         } catch (error) {
+            if (sesionVencida(error)) return;
             cuerpo.innerHTML = '<tr><td colspan="6">' + window.escaparHtml(error.message) + '</td></tr>';
         }
     }
@@ -299,6 +334,7 @@
             window.toast('Pedido #' + id + ' actualizado a ' + estado, 'ok');
             cargarPedidos();
         } catch (error) {
+            if (sesionVencida(error)) return;
             window.toast(error.message, 'error');
             cargarPedidos();
         }

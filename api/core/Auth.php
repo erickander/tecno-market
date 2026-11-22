@@ -1,41 +1,88 @@
 <?php
 /**
- * TECNO-MARKET | Middleware de seguridad (PENDIENTE - P4)
+ * TECNO-MARKET | Middleware de autenticacion y autorizacion
  *
- * Contrato que debe respetar la Persona 4:
- *  - Auth::requerir(array $roles) valida el token JWT de la cabecera
- *    Authorization: Bearer <token>.
- *  - Sin token, token vencido o firma invalida  -> Response::error(401, ...)
- *  - Rol insuficiente                            -> Response::error(403, ...)
- *  - Si $roles esta vacio, la ruta es publica y no se valida nada.
- *  - Auth::usuario() devuelve el payload del token o null.
+ * Uso en las rutas:
+ *   $router->post('/productos', [...], ['administrador']);
+ *   $router->get('/clientes/{id}', [...], ['administrador', 'propietario']);
  *
- * Mientras tanto las rutas quedan abiertas para poder demostrar la tienda.
+ * 'propietario' permite el paso a cualquier usuario con rol cliente;
+ * el controlador confirma despues que el recurso sea suyo con
+ * Auth::autorizarPropietario().
  */
 
 class Auth
 {
+    private static ?array $usuario = null;
+
     public static function requerir(array $roles = []): void
     {
-        // TODO (P4): implementar validacion de JWT.
-        //
-        // $token = self::tokenDeCabecera();
-        // if ($token === null) {
-        //     Response::error(401, 'Token de autorizacion requerido');
-        // }
-        // $payload = Jwt::validar($token);   // lanza 401 si es invalido o vencido
-        // if ($roles !== [] && !in_array($payload['rol'] ?? '', $roles, true)) {
-        //     Response::error(403, 'No tiene permisos para realizar esta operacion');
-        // }
-        // self::$usuarioActual = $payload;
+        // Ruta publica
+        if ($roles === []) {
+            return;
+        }
 
-        return;
+        $token = self::tokenDeCabecera();
+
+        if ($token === null) {
+            header('WWW-Authenticate: Bearer');
+            Response::error(401, 'Token de autorizacion requerido');
+        }
+
+        $payload = Jwt::validar($token);
+
+        self::$usuario = $payload;
+
+        $rol = (string) ($payload['rol'] ?? '');
+
+        if (in_array($rol, $roles, true)) {
+            return;
+        }
+
+        if ($rol === 'cliente' && in_array('propietario', $roles, true)) {
+            return;
+        }
+
+        Response::error(403, 'No tiene permisos para realizar esta operacion');
     }
 
     public static function usuario(): ?array
     {
-        // TODO (P4): devolver el payload del token validado.
-        return null;
+        return self::$usuario;
+    }
+
+    public static function rol(): ?string
+    {
+        return self::$usuario['rol'] ?? null;
+    }
+
+    public static function idUsuario(): ?int
+    {
+        return isset(self::$usuario['sub']) ? (int) self::$usuario['sub'] : null;
+    }
+
+    public static function idCliente(): ?int
+    {
+        return isset(self::$usuario['id_cliente']) ? (int) self::$usuario['id_cliente'] : null;
+    }
+
+    public static function esAdministrador(): bool
+    {
+        return self::rol() === 'administrador';
+    }
+
+    /**
+     * Permite el acceso al administrador o al cliente dueno del recurso.
+     */
+    public static function autorizarPropietario(int $idCliente, string $mensaje = 'No puede acceder a recursos de otro cliente'): void
+    {
+        if (self::esAdministrador()) {
+            return;
+        }
+
+        if (self::idCliente() !== $idCliente) {
+            Response::error(403, $mensaje);
+        }
     }
 
     public static function tokenDeCabecera(): ?string
