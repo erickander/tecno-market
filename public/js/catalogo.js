@@ -91,7 +91,8 @@
             return '' +
                 '<article class="tarjeta">' +
                     '<a class="tarjeta__imagen" href="producto.html?id=' + producto.id_producto + '">' +
-                        '<img src="' + imagen(producto.imagen) + '" alt="' + window.escaparHtml(producto.nombre) + '" loading="lazy">' +
+                        '<img src="' + imagen(producto.imagen) + '" alt="' + window.escaparHtml(producto.nombre) + '" loading="lazy" ' +
+                            'onerror="this.onerror=null;this.src=\'img/productos/placeholder.svg\'">' +
                         '<span class="' + claseStock(producto.stock) + '">' + textoStock(producto.stock) + '</span>' +
                     '</a>' +
                     '<div class="tarjeta__cuerpo">' +
@@ -206,7 +207,8 @@
 
                 contenedor.innerHTML = '' +
                     '<div class="detalle__imagen">' +
-                        '<img src="' + imagen(producto.imagen) + '" alt="' + window.escaparHtml(producto.nombre) + '">' +
+                        '<img src="' + imagen(producto.imagen) + '" alt="' + window.escaparHtml(producto.nombre) + '" ' +
+                            'onerror="this.onerror=null;this.src=\'img/productos/placeholder.svg\'">' +
                     '</div>' +
                     '<div class="detalle__info">' +
                         '<h1>' + window.escaparHtml(producto.nombre) + '</h1>' +

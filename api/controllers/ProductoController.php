@@ -10,7 +10,7 @@ class ProductoController
         'precio'      => ['requerido', 'numero', 'min:0.01'],
         'stock'       => ['requerido', 'entero', 'min:0'],
         'descripcion' => ['texto:0,500'],
-        'imagen'      => ['texto:0,255'],
+        'imagen'      => ['texto:0,512', 'url_o_archivo'],
         'activo'      => ['entero', 'en:0,1'],
     ];
 

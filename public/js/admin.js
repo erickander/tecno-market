@@ -7,21 +7,21 @@
 
     var IMAGENES = [
         'placeholder.svg',
-        'laptop-lenovo.svg',
-        'laptop-hp.svg',
-        'mouse-logitech.svg',
-        'teclado-gamer.svg',
-        'monitor-samsung.svg',
-        'audifonos-bluetooth.svg',
-        'impresora-epson.svg',
-        'usb-kingston.svg',
-        'ssd-kingston.svg',
-        'webcam-logitech.svg',
-        'tablet-samsung.svg',
-        'parlante-bluetooth.svg',
-        'router-tplink.svg',
-        'silla-gamer.svg',
-        'cable-hdmi.svg'
+        'laptop-lenovo.jpg',
+        'laptop-hp.jpg',
+        'mouse-logitech.jpg',
+        'teclado-gamer.jpg',
+        'monitor-samsung.jpg',
+        'audifonos-bluetooth.jpg',
+        'impresora-epson.jpg',
+        'usb-kingston.jpg',
+        'ssd-kingston.jpg',
+        'webcam-logitech.jpg',
+        'tablet-samsung.jpg',
+        'parlante-bluetooth.jpg',
+        'router-tplink.jpg',
+        'silla-gamer.jpg',
+        'cable-hdmi.jpg'
     ];
 
     var ESTADOS = ['pendiente', 'procesando', 'enviado', 'entregado', 'cancelado'];
@@ -71,10 +71,25 @@
     }
 
     function pintarOpcionesImagen() {
-        var select = document.getElementById('imagen');
-        select.innerHTML = IMAGENES.map(function (archivo) {
-            return '<option value="' + archivo + '">' + archivo + '</option>';
+        var lista = document.getElementById('imagenesDisponibles');
+
+        lista.innerHTML = IMAGENES.map(function (archivo) {
+            return '<option value="' + archivo + '"></option>';
         }).join('');
+
+        var entrada = document.getElementById('imagen');
+        entrada.addEventListener('input', actualizarVistaPrevia);
+        actualizarVistaPrevia();
+    }
+
+    function actualizarVistaPrevia() {
+        var valor = document.getElementById('imagen').value.trim();
+        var vista = document.getElementById('vistaImagen');
+        vista.onerror = function () {
+            this.onerror = null;
+            this.src = 'img/productos/placeholder.svg';
+        };
+        vista.src = window.imagenProducto(valor);
     }
 
     function cambiarPestana(nombre) {
@@ -115,7 +130,8 @@
                 '<tr>' +
                     '<td>' +
                         '<div class="celda-producto">' +
-                            '<img src="' + window.imagenProducto(producto.imagen) + '" alt="">' +
+                            '<img src="' + window.imagenProducto(producto.imagen) + '" alt="" ' +
+                                'onerror="this.onerror=null;this.src=\'img/productos/placeholder.svg\'">' +
                             '<div>' +
                                 '<strong>' + window.escaparHtml(producto.nombre) + '</strong><br>' +
                                 '<span class="texto-suave" style="font-size:.78rem">#' + producto.id_producto + '</span>' +
@@ -154,6 +170,8 @@
         document.getElementById('descripcion').value = producto.descripcion || '';
         document.getElementById('activo').value = producto.activo ? '1' : '0';
 
+        actualizarVistaPrevia();
+
         document.getElementById('tituloFormulario').textContent = 'Editar producto #' + producto.id_producto;
         document.getElementById('btnGuardar').textContent = 'Actualizar producto';
 
@@ -166,6 +184,7 @@
         document.getElementById('activo').value = '1';
         document.getElementById('tituloFormulario').textContent = 'Nuevo producto';
         document.getElementById('btnGuardar').textContent = 'Guardar producto';
+        actualizarVistaPrevia();
     }
 
     async function guardar(evento) {
@@ -176,7 +195,7 @@
             nombre: document.getElementById('nombre').value.trim(),
             precio: Number(document.getElementById('precio').value),
             stock: Number(document.getElementById('stock').value),
-            imagen: document.getElementById('imagen').value,
+            imagen: document.getElementById('imagen').value.trim() || 'placeholder.svg',
             descripcion: document.getElementById('descripcion').value.trim(),
             activo: Number(document.getElementById('activo').value)
         };

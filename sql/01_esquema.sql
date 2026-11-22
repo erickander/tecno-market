@@ -48,7 +48,7 @@ CREATE TABLE `productos` (
     `descripcion` TEXT DEFAULT NULL,
     `precio`      DECIMAL(10,2) NOT NULL,
     `stock`       INT(11) NOT NULL DEFAULT 0,
-    `imagen`      VARCHAR(255) DEFAULT NULL,
+    `imagen`      VARCHAR(512) DEFAULT NULL,
     `activo`      TINYINT(1) NOT NULL DEFAULT 1,
     `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -32,21 +32,21 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `correo`, `telefono`, `direccion
 -- Productos (imagen = archivo en public/img/productos/)
 -- ------------------------------------------------------------
 INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `stock`, `imagen`) VALUES
-(1,  'Laptop Lenovo IdeaPad',   'Laptop Intel Core i5, 8 GB RAM, 512 GB SSD, pantalla 15.6"', 650.00, 12, 'laptop-lenovo.svg'),
-(2,  'Laptop HP Pavilion',      'Laptop Intel Core i7, 16 GB RAM, 1 TB SSD, pantalla 14"',      950.00,  8, 'laptop-hp.svg'),
-(3,  'Mouse Logitech',          'Mouse inalambrico USB, sensor optico de 1000 dpi',               18.50, 30, 'mouse-logitech.svg'),
-(4,  'Teclado Gamer RGB',       'Teclado mecanico con iluminacion RGB y reposamunecas',            45.00, 20, 'teclado-gamer.svg'),
-(5,  'Monitor Samsung 24"',     'Monitor LED Full HD de 24 pulgadas, 75 Hz, HDMI',                180.00, 10, 'monitor-samsung.svg'),
-(6,  'Audifonos Bluetooth',     'Audifonos inalambricos con microfono y estuche de carga',         32.00, 25, 'audifonos-bluetooth.svg'),
-(7,  'Impresora Epson',         'Impresora multifuncion de tinta continua, WiFi',                 220.00,  6, 'impresora-epson.svg'),
-(8,  'Memoria USB Kingston',    'Memoria USB de 64 GB, USB 3.0',                                   12.00, 40, 'usb-kingston.svg'),
-(9,  'Disco SSD Kingston',      'Unidad SSD de 1 TB, SATA III, 550 MB/s',                          85.00, 15, 'ssd-kingston.svg'),
-(10, 'Webcam Logitech',         'Camara web Full HD 1080p con microfono integrado',                55.00, 12, 'webcam-logitech.svg'),
-(11, 'Tablet Samsung',          'Tablet de 10 pulgadas, 128 GB, WiFi',                             280.00,  7, 'tablet-samsung.svg'),
-(12, 'Parlante Bluetooth',      'Parlante portatil inalambrico resistente al agua',                40.00, 18, 'parlante-bluetooth.svg'),
-(13, 'Router TP-Link',          'Router inalambrico de doble banda, 4 antenas',                    65.00, 14, 'router-tplink.svg'),
-(14, 'Silla Gamer',             'Silla ergonomica reclinable para videojuegos',                   190.00,  5, 'silla-gamer.svg'),
-(15, 'Cable HDMI',              'Cable HDMI 2.0 de 2 metros, alta definicion',                      8.00, 50, 'cable-hdmi.svg');
+(1,  'Laptop Lenovo IdeaPad',   'Laptop Intel Core i5, 8 GB RAM, 512 GB SSD, pantalla 15.6"', 650.00, 12, 'laptop-lenovo.jpg'),
+(2,  'Laptop HP Pavilion',      'Laptop Intel Core i7, 16 GB RAM, 1 TB SSD, pantalla 14"',      950.00,  8, 'laptop-hp.jpg'),
+(3,  'Mouse Logitech',          'Mouse inalambrico USB, sensor optico de 1000 dpi',               18.50, 30, 'mouse-logitech.jpg'),
+(4,  'Teclado Gamer RGB',       'Teclado mecanico con iluminacion RGB y reposamunecas',            45.00, 20, 'teclado-gamer.jpg'),
+(5,  'Monitor Samsung 24"',     'Monitor LED Full HD de 24 pulgadas, 75 Hz, HDMI',                180.00, 10, 'monitor-samsung.jpg'),
+(6,  'Audifonos Bluetooth',     'Audifonos inalambricos con microfono y estuche de carga',         32.00, 25, 'audifonos-bluetooth.jpg'),
+(7,  'Impresora Epson',         'Impresora multifuncion de tinta continua, WiFi',                 220.00,  6, 'impresora-epson.jpg'),
+(8,  'Memoria USB Kingston',    'Memoria USB de 64 GB, USB 3.0',                                   12.00, 40, 'usb-kingston.jpg'),
+(9,  'Disco SSD Kingston',      'Unidad SSD de 1 TB, SATA III, 550 MB/s',                          85.00, 15, 'ssd-kingston.jpg'),
+(10, 'Webcam Logitech',         'Camara web Full HD 1080p con microfono integrado',                55.00, 12, 'webcam-logitech.jpg'),
+(11, 'Tablet Samsung',          'Tablet de 10 pulgadas, 128 GB, WiFi',                             280.00,  7, 'tablet-samsung.jpg'),
+(12, 'Parlante Bluetooth',      'Parlante portatil inalambrico resistente al agua',                40.00, 18, 'parlante-bluetooth.jpg'),
+(13, 'Router TP-Link',          'Router inalambrico de doble banda, 4 antenas',                    65.00, 14, 'router-tplink.jpg'),
+(14, 'Silla Gamer',             'Silla ergonomica reclinable para videojuegos',                   190.00,  5, 'silla-gamer.jpg'),
+(15, 'Cable HDMI',              'Cable HDMI 2.0 de 2 metros, alta definicion',                      8.00, 50, 'cable-hdmi.jpg');
 
 -- ------------------------------------------------------------
 -- Usuarios (contrasenas con bcrypt)

@@ -85,6 +85,18 @@ class Validador
                         }
                         break;
 
+                    case 'url_o_archivo':
+                        $texto = (string) $valor;
+
+                        if (preg_match('#^https?://#i', $texto)) {
+                            if (!filter_var($texto, FILTER_VALIDATE_URL)) {
+                                $errores[$campo][] = "El campo {$etiqueta} debe ser una URL valida";
+                            }
+                        } elseif (!preg_match('#^[A-Za-z0-9._-]+$#', $texto)) {
+                            $errores[$campo][] = "El campo {$etiqueta} debe ser un nombre de archivo o una URL http(s)";
+                        }
+                        break;
+
                     case 'en':
                         $opciones = explode(',', (string) $argumento);
 

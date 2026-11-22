@@ -27,9 +27,22 @@
     }
 
     function imagenProducto(nombreArchivo) {
-        var archivo = nombreArchivo && String(nombreArchivo).trim() !== ''
-            ? nombreArchivo
-            : 'placeholder.svg';
+        var valor = nombreArchivo === null || nombreArchivo === undefined
+            ? ''
+            : String(nombreArchivo).trim();
+
+        // Si es una URL externa, se usa tal cual
+        if (/^https?:\/\//i.test(valor)) {
+            return valor;
+        }
+
+        // Si es una ruta ya armada (por ejemplo img/...) se respeta
+        if (/^(img\/|\.\.?\/)/i.test(valor)) {
+            return valor;
+        }
+
+        var archivo = valor !== '' ? valor : 'placeholder.svg';
+
         return 'img/productos/' + archivo;
     }
 

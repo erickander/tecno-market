@@ -68,8 +68,17 @@
                 </div>
 
                 <div class="campo">
-                    <label for="imagen">Imagen</label>
-                    <select id="imagen"></select>
+                    <label for="imagen">Imagen (archivo local o URL)</label>
+                    <input type="text" id="imagen" list="imagenesDisponibles" maxlength="512"
+                           placeholder="laptop-lenovo.jpg o https://ejemplo.com/foto.jpg">
+                    <datalist id="imagenesDisponibles"></datalist>
+                    <div class="vista-previa">
+                        <img id="vistaImagen" src="img/productos/placeholder.svg" alt="Vista previa">
+                    </div>
+                    <p class="ayuda">
+                        Escribe una URL que empiece con <code>http://</code> o <code>https://</code>,
+                        o elige un archivo de la lista. Si se deja vacío se usa la imagen por defecto.
+                    </p>
                 </div>
 
                 <div class="campo">

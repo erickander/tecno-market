@@ -40,7 +40,8 @@
                     '<div class="item" data-item="' + item.id_producto + '">' +
                         '<div class="item__imagen">' +
                             '<img src="' + window.imagenProducto(item.imagen) + '" alt="' +
-                                window.escaparHtml(item.nombre) + '">' +
+                                window.escaparHtml(item.nombre) + '" ' +
+                                'onerror="this.onerror=null;this.src=\'img/productos/placeholder.svg\'">' +
                         '</div>' +
                         '<div>' +
                             '<div class="item__nombre">' + window.escaparHtml(item.nombre) + '</div>' +
