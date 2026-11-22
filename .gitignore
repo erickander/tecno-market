@@ -1,0 +1,19 @@
+# Configuracion local (credenciales)
+api/config/config.php
+
+# Entornos y editores
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs y respaldos
+*.log
+*.bak
+*.zip
+*.rar
+
+# Dependencias (si mas adelante se usan)
+vendor/
+node_modules/
