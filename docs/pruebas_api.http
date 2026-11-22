@@ -1,0 +1,187 @@
+### TECNO-MARKET API - pruebas con REST Client (VS Code)
+### Extension: humao.rest-client
+###
+### 1) Ejecuta el login y copia el token
+### 2) Pega el token en @token_admin o @token_cliente
+### 3) Ejecuta el resto de peticiones
+
+@base = http://localhost/tecno_market/api/v1
+@token_admin = PEGAR_TOKEN_ADMIN
+@token_cliente = PEGAR_TOKEN_CLIENTE
+
+### ------------------------------------------------------------
+### Autenticacion
+### ------------------------------------------------------------
+
+# @name loginAdmin
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "nombre_usuario": "admin",
+  "contrasena": "Admin123*"
+}
+
+###
+
+# @name loginCliente
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "nombre_usuario": "cliente",
+  "contrasena": "Cliente123*"
+}
+
+###
+
+GET {{base}}/auth/me
+Authorization: Bearer {{token_admin}}
+
+### ------------------------------------------------------------
+### Productos
+### ------------------------------------------------------------
+
+GET {{base}}/productos?pagina=1&limite=8&orden=id
+
+###
+
+GET {{base}}/productos?q=laptop
+
+###
+
+GET {{base}}/productos/3
+
+###
+
+GET {{base}}/productos/999
+
+###
+
+POST {{base}}/productos
+Content-Type: application/json
+Authorization: Bearer {{token_admin}}
+
+{
+  "nombre": "Monitor LG 27",
+  "descripcion": "Monitor IPS de 27 pulgadas",
+  "precio": 210.5,
+  "stock": 9,
+  "imagen": "placeholder.svg"
+}
+
+###
+
+PUT {{base}}/productos/3
+Content-Type: application/json
+Authorization: Bearer {{token_admin}}
+
+{
+  "precio": 19.99,
+  "stock": 25
+}
+
+###
+
+DELETE {{base}}/productos/1
+Authorization: Bearer {{token_admin}}
+
+### ------------------------------------------------------------
+### Clientes
+### ------------------------------------------------------------
+
+POST {{base}}/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Cliente de Prueba",
+  "correo": "prueba@example.com",
+  "telefono": "0991234567",
+  "direccion": "Quito"
+}
+
+###
+
+GET {{base}}/clientes/1
+Authorization: Bearer {{token_cliente}}
+
+###
+
+GET {{base}}/clientes/2
+Authorization: Bearer {{token_cliente}}
+
+### ------------------------------------------------------------
+### Pedidos
+### ------------------------------------------------------------
+
+POST {{base}}/pedidos
+Content-Type: application/json
+Authorization: Bearer {{token_cliente}}
+
+{
+  "items": [
+    { "id_producto": 3, "cantidad": 1 },
+    { "id_producto": 8, "cantidad": 2 }
+  ]
+}
+
+###
+
+GET {{base}}/pedidos
+Authorization: Bearer {{token_admin}}
+
+###
+
+GET {{base}}/pedidos/1
+Authorization: Bearer {{token_admin}}
+
+###
+
+PATCH {{base}}/pedidos/1/estado
+Content-Type: application/json
+Authorization: Bearer {{token_admin}}
+
+{
+  "estado": "procesando"
+}
+
+### ------------------------------------------------------------
+### Errores y seguridad
+### ------------------------------------------------------------
+
+POST {{base}}/productos
+Content-Type: application/json
+
+{
+  "nombre": "Sin token",
+  "precio": 10,
+  "stock": 1
+}
+
+###
+
+POST {{base}}/productos
+Content-Type: application/json
+Authorization: Bearer {{token_cliente}}
+
+{
+  "nombre": "Cliente no puede",
+  "precio": 10,
+  "stock": 1
+}
+
+###
+
+POST {{base}}/productos
+Content-Type: application/json
+Authorization: Bearer {{token_admin}}
+
+{
+  "nombre": "Producto invalido",
+  "precio": -5,
+  "stock": -2
+}
+
+###
+
+GET {{base}}/ruta/inexistente
