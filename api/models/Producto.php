@@ -13,11 +13,16 @@ class Producto
         'stock'       => 'stock DESC',
     ];
 
-    public static function listar(int $pagina, int $limite, string $busqueda, string $orden): array
-    {
+    public static function listar(
+        int $pagina,
+        int $limite,
+        string $busqueda,
+        string $orden,
+        bool $incluirInactivos = false
+    ): array {
         $pdo = Database::conexion();
 
-        $where  = '1 = 1';
+        $where  = $incluirInactivos ? '1 = 1' : 'activo = 1';
         $params = [];
 
         if ($busqueda !== '') {

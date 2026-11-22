@@ -93,7 +93,7 @@
         cuerpo.innerHTML = '<tr><td colspan="5">Cargando productos...</td></tr>';
 
         try {
-            var data = await API.get('productos?limite=50&orden=id');
+            var data = await API.get('productos?limite=50&orden=id&incluir_inactivos=1');
             productos = data.items;
             pintarProductos();
         } catch (error) {

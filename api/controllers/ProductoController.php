@@ -21,8 +21,9 @@ class ProductoController
         $limite   = $limite < 1 ? 8 : min($limite, 50);
         $busqueda = trim((string) Request::query('q', ''));
         $orden    = (string) Request::query('orden', 'id');
+        $incluirInactivos = (int) Request::query('incluir_inactivos', 0) === 1;
 
-        $resultado = Producto::listar($pagina, $limite, $busqueda, $orden);
+        $resultado = Producto::listar($pagina, $limite, $busqueda, $orden, $incluirInactivos);
 
         Response::ok($resultado, 'Listado de productos');
     }
